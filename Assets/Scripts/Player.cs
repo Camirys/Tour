@@ -5,10 +5,10 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // pour le mouvement
-    public float vitesse = 5;
-    Rigidbody2D rb;
+    public float vitesse = 2;
+    Rigidbody rb;
     float inputX;
-    float inputY;
+    //float inputY;
     Vector2 mouvement;
     public bool seRetourne = true;
 
@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -32,8 +32,8 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         inputX = Input.GetAxisRaw("Horizontal");
-        inputY = Input.GetAxisRaw("Vertical");
-        mouvement = (new Vector2(inputX, inputY)).normalized * vitesse;
+        //inputY = Input.GetAxisRaw("Vertical");
+        mouvement = (new Vector2(inputX, 0)).normalized * vitesse;
         rb.velocity = mouvement;
         if(seRetourne && rb.velocity.x > 0)
         {
