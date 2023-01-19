@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class Teleporteur : MonoBehaviour
 {
+    public Transform Destination;
+    public GameObject Player;
     public bool teleporteTout = false;
-    public Transform destination;
+    bool aTP = false;
+     /* 
+     //Attempt 1
+     public Transform Destination;       // Gameobject where they will be teleported to
+     public string TagList = "|Player|Boss|Friendly|"; // List of all tags that can teleport*/
 
     // Start is called before the first frame update
     void Start()
@@ -18,29 +24,62 @@ public class Teleporteur : MonoBehaviour
     {
         
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "Player" || teleporteTout)
+        Player.transform.position = destination.transform.position;
+    }
+    /*
+     * 
+     Attempt 1
+     public void OnTriggerEnter(Collider other)
+    {
+        // If the tag of the colliding object is allowed to teleport
+        if (TagList.Contains(string.Format("|{0}|", other.tag)))
         {
-            if (destination)
-            {
-                collision.gameObject.transform.position = new Vector3(destination.position.x, destination.position.y, collision.gameObject.transform.position.z);
-            }
+            // Update other objects position and rotation
+            print("vu");
+            other.transform.position = Destination.transform.position;
+            other.transform.rotation = Destination.transform.rotation;
         }
+
+    }
+      */
+      private void OnTriggerEnter(Collider collision)
+      {
+            if (aTP == false)
+            {
+            print("false");
+                if (collision.gameObject.tag == "Player" || teleporteTout)
+                {
+                    
+                    collision.gameObject.transform.position = new Vector3(Destination.position.x, Destination.position.y, Destination.position.z - 0.2f);
+                    aTP = true;
+                    print("true");
+                    //GameObject.Find("Player").GetComponent<Transform>().position = new Vector3 (0f, 0f, );
+
+                }
+            }
+      }
+
+    private void OnTriggerExit(Collider collision)
+    {
+        aTP = false;
     }
 
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Player" || teleporteTout)
+    private void OnCollisionEnter(Collision collision)
         {
-            if (destination)
+            if (collision.gameObject.tag == "Player" || teleporteTout)
             {
-                collision.gameObject.transform.position = new Vector3(destination.position.x, destination.position.y, collision.gameObject.transform.position.z);
+                if (Destination)
+                {
+                    print("touché");
+                    collision.gameObject.transform.position = new Vector3(Destination.position.x, Destination.position.y, collision.gameObject.transform.position.z);
+                }
             }
         }
-    }
+        
+
 
 }
 

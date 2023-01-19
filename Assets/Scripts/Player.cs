@@ -35,20 +35,20 @@ public class Player : MonoBehaviour
         inputY = Input.GetAxisRaw("Vertical");
         mouvement = (new Vector2(inputX, inputY)).normalized * vitesse;
         rb.velocity = mouvement;
-        if(seRetourne && rb.velocity.x > 0)
+        if(seRetourne == true && rb.velocity.x > 0)
         {
             transform.localEulerAngles = new Vector2(1, 1);
         }
-        if (seRetourne && rb.velocity.x < 0)
+        if (seRetourne == true && rb.velocity.x < 0)
         {
             transform.localEulerAngles = new Vector2(-1, 1);
         }
         //On tente le saut
-        /* if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
          {
-             gameObject.transform.localPosition += new Vector3(0f, 2f, 0f);
-             GetComponent<Rigidbody>().MovePosition(new Vector3(1, transform.position.y, 0 ));
-         }*/
+             //gameObject.transform.localPosition += new Vector3(0f, 2f, 0f);
+             GetComponent<Rigidbody>().MovePosition(new Vector2(0, transform.position.y+5));
+         }
     }
 
     // pour les pnjs

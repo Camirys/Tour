@@ -10,11 +10,13 @@ public class TransformMechanic : MonoBehaviour
 
     public bool isGrowing = false;
     public bool isShrinking = false;
-    bool isRotating = false;
+    bool isRotatingCW = false;
+    bool isRotatingCCW = false;
+    Rigidbody rb;
 
     void Start()
     {
-
+        rb = GetComponent<Rigidbody>();
     }
     void OnMouseOver()
     {
@@ -32,11 +34,16 @@ public class TransformMechanic : MonoBehaviour
             isShrinking = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse2))
-        {
-            isRotating = true;
+        if (Input.mouseScrollDelta.y > 0)
+            {
+                isRotatingCW = true;
+                print("cw");
+            }
 
-        }
+        if (Input.mouseScrollDelta.y < 0)
+            {
+                isRotatingCCW = true;
+            }
     }
 
 // Update is called once per frame
@@ -53,9 +60,11 @@ void Update()
             isGrowing = false;
          }
 
-        if (Input.GetKeyUp(KeyCode.Mouse2))
+        if (Input.mouseScrollDelta.y == 0)
         {
-            isRotating = false;
+            rb.isKinematic = false;
+            isRotatingCW = false;
+            isRotatingCCW = false;
 
         }
 
@@ -71,12 +80,24 @@ void Update()
             print("shrinking");
         }
 
-        if(isRotating == true)
+        if(isRotatingCW == true)
         {
-            gameObject.transform.localEulerAngles += new Vector3(+0f, +0f, +Input.mouseScrollDelta.y);
+            rb.isKinematic = true;
+            //GetComponent<Rigidbody>().MoveRotation(Quaternion.Euler(new Vector3 (0f, 0f , 2f)));
+            transform.eulerAngles += new Vector3(0f, 0f, -3f);
+            print("rotating");
         }
 
-        if (gameObject.transform.localScale == new Vector3(0f, 0f, 0f))
+        if (isRotatingCCW == true)
+        {
+            rb.isKinematic = true;
+            //GetComponent<Rigidbody>().MoveRotation(Quaternion.Euler(new Vector3 (0f, 0f , 2f)));
+            transform.eulerAngles += new Vector3(0f, 0f, 3f);
+            print("rotatingCCW");
+
+        }
+
+            if (gameObject.transform.localScale == new Vector3(0f, 0f, 0f))
         {
 
             gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
