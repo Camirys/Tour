@@ -10,6 +10,7 @@ public class TransformMechanic : MonoBehaviour
 
     public bool isGrowing = false;
     public bool isShrinking = false;
+    bool isRotating = false;
 
     void Start()
     {
@@ -31,7 +32,11 @@ public class TransformMechanic : MonoBehaviour
             isShrinking = true;
         }
 
+        if (Input.GetKeyDown(KeyCode.Mouse2))
+        {
+            isRotating = true;
 
+        }
     }
 
 // Update is called once per frame
@@ -47,7 +52,13 @@ void Update()
          {
             isGrowing = false;
          }
-   
+
+        if (Input.GetKeyUp(KeyCode.Mouse2))
+        {
+            isRotating = false;
+
+        }
+
         if (isGrowing == true)
         {
             gameObject.transform.localScale += new Vector3(+0.002f, +0.002f, +0.002f);
@@ -58,6 +69,11 @@ void Update()
         {
             gameObject.transform.localScale += new Vector3(-0.002f, -0.002f, -0.002f);
             print("shrinking");
+        }
+
+        if(isRotating == true)
+        {
+            gameObject.transform.localEulerAngles += new Vector3(+0f, +0f, +Input.mouseScrollDelta.y);
         }
 
         if (gameObject.transform.localScale == new Vector3(0f, 0f, 0f))

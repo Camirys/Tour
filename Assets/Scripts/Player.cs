@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     public float vitesse = 2;
     Rigidbody rb;
     float inputX;
-    //float inputY;
+    float inputY;
     Vector2 mouvement;
     public bool seRetourne = true;
 
@@ -32,8 +32,8 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         inputX = Input.GetAxisRaw("Horizontal");
-        //inputY = Input.GetAxisRaw("Vertical");
-        mouvement = (new Vector2(inputX, 0)).normalized * vitesse;
+        inputY = Input.GetAxisRaw("Vertical");
+        mouvement = (new Vector2(inputX, inputY)).normalized * vitesse;
         rb.velocity = mouvement;
         if(seRetourne && rb.velocity.x > 0)
         {
@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
         /* if (Input.GetKeyDown(KeyCode.Space))
          {
              gameObject.transform.localPosition += new Vector3(0f, 2f, 0f);
-             GetComponent<Rigidbody2D>().MovePosition(new Vector3(1, transform.position.y, 0 ));
+             GetComponent<Rigidbody>().MovePosition(new Vector3(1, transform.position.y, 0 ));
          }*/
     }
 
