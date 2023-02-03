@@ -97,10 +97,10 @@ void Update()
 
         }
 
-            if (gameObject.transform.localScale == new Vector3(0f, 0f, 0f))
+        if (gameObject.transform.localScale.x <= 0.1f)
         {
 
-            gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
+            gameObject.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
             isShrinking = false;
             isGrowing = false;
             //Destroy(gameObject);

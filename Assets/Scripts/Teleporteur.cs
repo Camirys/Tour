@@ -52,7 +52,7 @@ public class Teleporteur : MonoBehaviour
                 if (collision.gameObject.tag == "Player" || teleporteTout)
                 {
                     
-                    collision.gameObject.transform.position = new Vector3(Destination.position.x, Destination.position.y, Destination.position.z - 0.2f);
+                    collision.gameObject.transform.position = new Vector3(Destination.position.x, Destination.position.y, Destination.position.z);
                     aTP = true;
                     print("true");
                     //GameObject.Find("Player").GetComponent<Transform>().position = new Vector3 (0f, 0f, );
@@ -68,17 +68,28 @@ public class Teleporteur : MonoBehaviour
 
 
     private void OnCollisionEnter(Collision collision)
+       
+        {
+        if (aTP == false)
+            print("atpfalse");
         {
             if (collision.gameObject.tag == "Player" || teleporteTout)
             {
                 if (Destination)
                 {
                     print("touché");
-                    collision.gameObject.transform.position = new Vector3(Destination.position.x, Destination.position.y, collision.gameObject.transform.position.z);
+                    collision.gameObject.transform.position = new Vector3(Destination.position.x, Destination.position.y, Destination.position.z);
+                    aTP = true;
+                    print("atptrue");
                 }
             }
         }
-        
+        }
+    //collision.gameObject.transform.position.z
+    private void OnCollisionExit(Collision collision)
+    {
+        aTP = false;
+    }
 
 
 }
