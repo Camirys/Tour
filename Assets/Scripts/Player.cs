@@ -43,12 +43,12 @@ public class Player : MonoBehaviour
         {
             transform.localEulerAngles = new Vector2(-1, 1);
         }
-        //On tente le saut
+        /*On tente le saut
         if (Input.GetKeyDown(KeyCode.Space))
          {
              //gameObject.transform.localPosition += new Vector3(0f, 2f, 0f);
              GetComponent<Rigidbody>().MovePosition(new Vector2(0, transform.position.y+5));
-         }
+         }*/
     }
 
     // pour les pnjs
